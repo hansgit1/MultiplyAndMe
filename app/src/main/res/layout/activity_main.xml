@@ -15,4 +15,22 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/background" />
+
+    <Button
+        android:id="@+id/buttons"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="buttons"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="162dp"
+        tools:layout_editor_absoluteY="27dp" />
+
+    <Button
+        android:id="@+id/instellingen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Instellingen"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="261dp"
+        tools:layout_editor_absoluteY="27dp" />
 </android.support.constraint.ConstraintLayout>
