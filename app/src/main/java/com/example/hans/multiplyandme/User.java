@@ -7,22 +7,20 @@ import java.util.HashMap;
 import java.util.Map;
 
 @IgnoreExtraProperties
-public class Post {
+public class User {
 
 
     public String username;
     public int score;
 
-    public Post(String username, int score) {
+    public User(String username) {
         this.username = username;
-        this.score = score;
     }
 
     @Exclude
     public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();
         result.put("username", username);
-        result.put("score", score);
         return result;
     }
 

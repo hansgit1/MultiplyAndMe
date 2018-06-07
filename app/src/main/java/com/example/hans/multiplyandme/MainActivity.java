@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -26,20 +27,28 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
+
+
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //start firebase
+                // Write a message to the database
+                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                final DatabaseReference myRef = database.getReference("users").push();
+
+                EditText username = (EditText) findViewById(R.id.username);
+
+                User user1 = new User(username.getText().toString());
+                myRef.child("Username").setValue(user1);
+
                 startActivity(new Intent(MainActivity.this, SomScherm.class));
             }
         });
 
-//        //start firebase
-//        // Write a message to the database
-//        FirebaseDatabase database = FirebaseDatabase.getInstance();
-//        final DatabaseReference myRef = database.getReference("message");
-//
-//        Post post = new Post("Helloworld2", 10);
-//        myRef.child("Username").setValue(post);
+
+
 //
 //        // Read from the database
 //        ValueEventListener postListener = new ValueEventListener() {
