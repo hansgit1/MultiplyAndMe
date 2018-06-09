@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -25,6 +27,9 @@ public class SomScherm extends AppCompatActivity {
     int value;
     int antwoord;
     int currentNumber = 1;
+    int teller = 1;
+    TextView somteller;
+
     //oncreate functie
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +37,7 @@ public class SomScherm extends AppCompatActivity {
         setContentView(R.layout.activity_som_scherm);
         // iniatilize id's
         som = (TextView) findViewById(R.id.som);
+        somteller = (TextView) findViewById(R.id.somteller);
         optie1 = (Button) findViewById(R.id.optie1);
         optie2 = (Button) findViewById(R.id.optie2);
         optie3 = (Button) findViewById(R.id.optie3);
@@ -44,12 +50,33 @@ public class SomScherm extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // blijf tot 10 keer doorgaan
-                if(currentNumber < 10){
+                if(currentNumber <= 10){
                     currentNumber++;
                     //reset de oude variabelen
                     optie1.setEnabled(true);
                     optie2.setEnabled(true);
                     optie3.setEnabled(true);
+                    // hoog ieder cijfer met 1 op zodra
+                    // de gebruiker op volgende tapt
+                    teller++;
+                    somteller.setText(""+teller+"/10");
+
+                    // verander de tekst van de button
+                    // zodra cuurentNumber bij de 10e som
+                    if (currentNumber == 10){
+                        next.setText("Resultaat");
+                    }
+                    // hieronder een if statement die ervoor
+                    // zorgt dat de onderstaande objecten niet
+                    // worden weergegeven zodra currentNumber op 11 beland
+                    if (currentNumber == 11){
+                        optie1.setVisibility(View.GONE);
+                        optie2.setVisibility(View.GONE);
+                        optie3.setVisibility(View.GONE);
+                        somteller.setVisibility(View.GONE);
+                        next.setVisibility(View.GONE);
+                        som.setVisibility(View.GONE);
+                    }
                     // zodra de gebruiker in het somscherm komt kan de
                     // de gebruiker de 'volgende' knop niet zien
                     // pas als de gebruiker op een antwoord tapt
@@ -60,7 +87,7 @@ public class SomScherm extends AppCompatActivity {
                     optie3.setBackgroundResource(android.R.drawable.btn_default);
                     //blijf de methode aanroepe zolang currentNumber geen 10 is vanwege 10 sommen
                     calcualteSom((int) (Math.random() * 10));
-                    if (currentNumber == 10) {
+                    if (currentNumber == 11) {
                         // als de 10de som bereikt is start resultaat activity
                         startActivity(new Intent(SomScherm.this, Resultaat.class));
                     }
@@ -77,6 +104,7 @@ public class SomScherm extends AppCompatActivity {
 
         // loop tot de tafel van 10
         for (int i = 1; i <= 10; i++) {
+
             // bereken de som
             value = i * number;
             // bepaal random waardes om een random som te generen
