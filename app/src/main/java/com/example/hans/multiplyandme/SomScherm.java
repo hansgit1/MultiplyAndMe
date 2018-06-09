@@ -50,6 +50,11 @@ public class SomScherm extends AppCompatActivity {
                     optie1.setEnabled(true);
                     optie2.setEnabled(true);
                     optie3.setEnabled(true);
+                    // zodra de gebruiker in het somscherm komt kan de
+                    // de gebruiker de 'volgende' knop niet zien
+                    // pas als de gebruiker op een antwoord tapt
+                    // komt de 'volgende' knop in beeld
+                    next.setVisibility(View.INVISIBLE);
                     optie1.setBackgroundResource(android.R.drawable.btn_default);
                     optie2.setBackgroundResource(android.R.drawable.btn_default);
                     optie3.setBackgroundResource(android.R.drawable.btn_default);
@@ -135,16 +140,17 @@ public class SomScherm extends AppCompatActivity {
                     if(Integer.parseInt((String) optie1.getText()) == antwoord){
                         // in dat geval wordt de button groen en wordt er 1 bij aantalgoed opgeteld
                         optie1.setBackgroundColor(Color.GREEN);
+                        next.setVisibility(View.VISIBLE);
                         aantalgoed++;
                     }else{
                         //als het antwoord niet goed is maak button rood en voeg 1 toe bij aantalfout
                         optie1.setBackgroundColor(Color.RED);
+                        next.setVisibility(View.VISIBLE);
                         aantalfout++;
                     }
                     // disable de overige buttons en maak de next button visible
                     optie2.setEnabled(false);
                     optie3.setEnabled(false);
-                    next.setVisibility(View.VISIBLE);
                 }
             });
             optie2.setOnClickListener(new View.OnClickListener() {
@@ -152,12 +158,13 @@ public class SomScherm extends AppCompatActivity {
                 public void onClick(View v) {
                     if(Integer.parseInt((String) optie2.getText()) == antwoord) {
                         optie2.setBackgroundColor(Color.GREEN);
+                        next.setVisibility(View.VISIBLE);
                         aantalgoed++;
                     }else{
                         optie2.setBackgroundColor(Color.RED);
+                        next.setVisibility(View.VISIBLE);
                         aantalfout++;
                     }
-                    next.setVisibility(View.VISIBLE);
                     optie1.setEnabled(false);
                     optie3.setEnabled(false);
                 }
@@ -167,12 +174,13 @@ public class SomScherm extends AppCompatActivity {
                 public void onClick(View v) {
                     if(Integer.parseInt((String) optie3.getText()) == antwoord){
                         optie3.setBackgroundColor(Color.GREEN);
+                        next.setVisibility(View.VISIBLE);
                         aantalgoed++;
                     }else{
                         optie3.setBackgroundColor(Color.RED);
+                        next.setVisibility(View.VISIBLE);
                         aantalfout++;
                     }
-                    next.setVisibility(View.VISIBLE);
                     optie1.setEnabled(false);
                     optie2.setEnabled(false);
                 }
