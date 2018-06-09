@@ -123,7 +123,7 @@ public class SomScherm extends AppCompatActivity {
                 random2 = random2 + 1;
             }
             // voeg de som toe aan de TextView
-            som.setText(random1 + " x " + random2 + " = ");
+            som.setText(random1 + " x " + random2);
             // bereken het antwoord
             antwoord = random1 * random2;
             // zet de antwoorden in een array
