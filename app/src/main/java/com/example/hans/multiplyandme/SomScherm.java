@@ -134,26 +134,28 @@ public class SomScherm extends AppCompatActivity {
             if (rnd == antwoord) {
                 // zorg hiermee voor unieke waardes
                 if(randombutton1 == randombutton2 || randombutton1 == antwoord || randombutton2 == antwoord){
+                    //counters aangepas om waardes beter te laten verschillen
                     randombutton1 += 3;
-                    randombutton2 += 3;
+                    randombutton2 += 4;
                 }
                 optie1.setText(""+rnd);
                 optie2.setText(""+randombutton1);
                 optie3.setText(""+randombutton2);
-            }else if(rnd == randombutton1) {
+                // check om antwoord vaker op ander plek te genereren
+            }else if(rnd == randombutton1 || rnd == randombutton2) {
                 // zorg hiermee voor unieke waardes
                 if(randombutton1 == randombutton2 || randombutton1 == antwoord || randombutton2 == antwoord){
                     randombutton1 += 2;
-                    randombutton2 += 2;
+                    randombutton2 += 3;
                 }
                 optie1.setText(""+randombutton1);
                 optie2.setText(""+antwoord);
                 optie3.setText(""+randombutton2);
-            }else{
+            }else {
                 // zorg hiermee voor unieke waardes
                 if(randombutton1 == randombutton2 || randombutton1 == antwoord || randombutton2 == antwoord){
                     randombutton1 += 6;
-                    randombutton2 += 6;
+                    randombutton2 += 7;
                 }
                 optie1.setText(""+randombutton2);
                 optie2.setText(""+randombutton1);
