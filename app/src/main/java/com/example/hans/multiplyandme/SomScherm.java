@@ -7,7 +7,14 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.w3c.dom.Text;
 
@@ -24,6 +31,8 @@ public class SomScherm extends AppCompatActivity {
     //iniatileze variabelen
     int aantalgoed = 0;
     int aantalfout = 0;
+    User username;
+
     int value;
     int antwoord;
     int currentNumber = 1;
@@ -33,6 +42,7 @@ public class SomScherm extends AppCompatActivity {
     //oncreate functie
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_som_scherm);
         // iniatilize id's
@@ -42,6 +52,13 @@ public class SomScherm extends AppCompatActivity {
         optie2 = (Button) findViewById(R.id.optie2);
         optie3 = (Button) findViewById(R.id.optie3);
         next = (Button) findViewById(R.id.next);
+
+
+
+//        EditText username = (EditText) findViewById(R.id.username);
+//        User user1 = new User(username.getText().toString(), aantalgoed);
+//        myRef.child("Username").setValue(user1);
+
 
         //roep methode aan voor berekening
         calcualteSom((int) (Math.random() * 10));
@@ -64,6 +81,36 @@ public class SomScherm extends AppCompatActivity {
                     // verander de tekst van de button
                     // zodra cuurentNumber bij de 10e som
                     if (currentNumber == 10){
+
+                        FirebaseDatabase database = FirebaseDatabase.getInstance();
+                        final DatabaseReference myRef = database.getReference("users").push();
+                        // Read from the database
+                        ValueEventListener postListener = new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                if(dataSnapshot.getValue() != null){
+                                    // Get Post object and use the values to update the UI
+                                    User user = dataSnapshot.getValue(User.class);
+//                                user.score = aantalgoed;
+                                    System.out.println( "user print = " + user);
+//                                System.out.println( "user.score = " + user.score);
+                                    myRef.setValue(user);
+                                }else{
+                                    System.out.println("Data is null");
+                                }
+
+                            }
+
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+                                // Getting Post failed, log a message
+                                Log.w("", "loadPost:onCancelled", databaseError.toException());
+                                // ...
+                            }
+                        };
+                        myRef.addValueEventListener(postListener);
+                        //end firebase
                         next.setText("Resultaat");
                     }
                     // hieronder een if statement die ervoor
@@ -88,8 +135,10 @@ public class SomScherm extends AppCompatActivity {
                     //blijf de methode aanroepe zolang currentNumber geen 10 is vanwege 10 sommen
                     calcualteSom((int) (Math.random() * 10));
                     if (currentNumber == 11) {
+
                         // als de 10de som bereikt is start resultaat activity
                         startActivity(new Intent(SomScherm.this, Resultaat.class));
+
                     }
                 }
 
@@ -172,6 +221,7 @@ public class SomScherm extends AppCompatActivity {
                         optie1.setBackgroundColor(Color.GREEN);
                         next.setVisibility(View.VISIBLE);
                         aantalgoed++;
+
                     }else{
                         //als het antwoord niet goed is maak button rood en voeg 1 toe bij aantalfout
                         optie1.setBackgroundColor(Color.RED);
