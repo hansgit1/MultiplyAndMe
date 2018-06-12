@@ -13,14 +13,20 @@ public class User {
     public String username;
     public int score;
 
-    public User(String username) {
+    public User(String username, int score) {
         this.username = username;
+        this.score = score;
+    }
+
+    public User() {
+
     }
 
     @Exclude
     public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();
         result.put("username", username);
+        result.put("score", score);
         return result;
     }
 
