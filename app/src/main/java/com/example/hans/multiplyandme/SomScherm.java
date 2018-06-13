@@ -82,34 +82,20 @@ public class SomScherm extends AppCompatActivity {
                     // zodra cuurentNumber bij de 10e som
                     if (currentNumber == 10){
 
+                        Intent intent = getIntent();
+                        String username = intent.getStringExtra(MainActivity.USER_NAME);
+                        System.out.println("Username = " + username);
+
                         FirebaseDatabase database = FirebaseDatabase.getInstance();
                         final DatabaseReference myRef = database.getReference("users").push();
-                        // Read from the database
-                        ValueEventListener postListener = new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                if(dataSnapshot.getValue() != null){
-                                    // Get Post object and use the values to update the UI
-                                    User user = dataSnapshot.getValue(User.class);
+
+
+                        User user1 = new User(username, aantalgoed);
 //                                user.score = aantalgoed;
-                                    System.out.println( "user print = " + user);
+//                                    System.out.println( "user print = " + user);
 //                                System.out.println( "user.score = " + user.score);
-                                    myRef.setValue(user);
-                                }else{
-                                    System.out.println("Data is null");
-                                }
+                        myRef.child("Username").setValue(user1);
 
-                            }
-
-
-                            @Override
-                            public void onCancelled(DatabaseError databaseError) {
-                                // Getting Post failed, log a message
-                                Log.w("", "loadPost:onCancelled", databaseError.toException());
-                                // ...
-                            }
-                        };
-                        myRef.addValueEventListener(postListener);
                         //end firebase
                         next.setText("Resultaat");
                     }

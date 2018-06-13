@@ -22,12 +22,29 @@ public class User {
 
     }
 
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
     @Exclude
     public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();
         result.put("username", username);
         result.put("score", score);
         return result;
+
     }
 
 }

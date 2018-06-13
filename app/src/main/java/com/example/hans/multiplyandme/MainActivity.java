@@ -15,6 +15,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity {
+    public static final String USER_NAME = "username";
+    public static final String USER_SCORE = "score";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,10 +43,15 @@ public class MainActivity extends AppCompatActivity {
 
                 EditText username = (EditText) findViewById(R.id.username);
 
-                User user1 = new User(username.getText().toString());
+                User user1 = new User(username.getText().toString(), 0);
                 myRef.child("Username").setValue(user1);
+                Intent intent = new Intent(MainActivity.this, SomScherm.class);
 
-                startActivity(new Intent(MainActivity.this, SomScherm.class));
+
+                intent.putExtra(USER_NAME, user1.getUsername());
+                intent.putExtra(USER_SCORE, user1.getScore());
+
+                startActivity(intent);
             }
         });
 
