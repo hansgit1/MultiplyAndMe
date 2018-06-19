@@ -19,6 +19,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -46,45 +47,68 @@ public class Resultaat extends AppCompatActivity {
         mChart.setTransparentCircleColor(Color.rgb(130, 130, 130));
         mChart.animateY(1400, Easing.EasingOption.EaseInOutQuad);
 
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        final DatabaseReference myRef = database.getReference("users");
+//        FirebaseDatabase database = FirebaseDatabase.getInstance();
+//        final DatabaseReference myRef = database.getReference().child("user");
 
-        System.out.println("score = " + score);
-        System.out.println("naam = " + naam);
         setData(score);
 
 //        Intent intent = getIntent();
 //        String score = intent.getStringExtra(SomScherm.USER_SCORE);
 //        String username = intent.getStringExtra(SomScherm.USER_NAME);
 
-
-        ValueEventListener postListener = new ValueEventListener() {
-            //intialiseer het pad
-
-
+        final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+        Query lastQuery = databaseReference.child("user").orderByKey().limitToLast(1);
+        lastQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-
-                for (DataSnapshot datasnapshot:dataSnapshot.getChildren()){
-                    // Get Post object and use the values to update the UI
-                    User user = dataSnapshot.getValue(User.class);
-                    // ...
-                    score = user.score;
-                    naam = user.username;
+                for(DataSnapshot child: dataSnapshot.getChildren()){
+                    //Username wordt hier opgehaald
+                    System.out.println("username = " + child.child("username").getValue().toString());
+                    //Score wordt hier opgehaald
+                    System.out.println("score = " + child.child("score").getValue().toString());
+                    //alvast in variable vorm
+                    String username = child.child("username").getValue().toString();
+                    // om er mee te rekenen moeten omzetten naar int
+                    int score = Integer.parseInt(child.child("score").getValue().toString());
+                    //testen
                     System.out.println("score = " + score);
-                    System.out.println("username = " + naam);
                 }
 
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                // Getting Post failed, log a message
-                Log.w( "loadPost:onCancelled", databaseError.toException());
-                // ...
+                //Handle possible errors.
             }
-        };
-        myRef.addValueEventListener(postListener);
+        });
+//        ValueEventListener postListener = new ValueEventListener() {
+//            //intialiseer het pad
+//
+//
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                DatabaseReference username = myRef.child("username");
+//                DatabaseReference score = myRef.child("score");
+//
+//                    // Get Post object and use the values to update the UI
+////                    String score = dataSnapshot.child("score").getValue().toString();
+////                    userRef.setValue(user);
+//                    System.out.println("username = " + username);
+//                    System.out.println("score = " + score);
+////                    System.out.println("score = " + user.score);
+////                    System.out.println("username = " + user.username);
+//
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//                // Getting Post failed, log a message
+//                Log.w( "loadPost:onCancelled", databaseError.toException());
+//                // ...
+//            }
+//        };
+//        myRef.addValueEventListener(postListener);
         setData(0);
 
 //        Button fab = (Button) findViewById(R.id.plusTweeTest);

@@ -17,6 +17,7 @@ import com.google.firebase.database.ValueEventListener;
 public class MainActivity extends AppCompatActivity {
     public static final String USER_NAME = "username";
     public static final String USER_SCORE = "score";
+    DatabaseReference rootref, userref;
 
 
     @Override
@@ -38,13 +39,14 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 //start firebase
                 // Write a message to the database
-                FirebaseDatabase database = FirebaseDatabase.getInstance();
-                final DatabaseReference myRef = database.getReference("users");
+//                FirebaseDatabase database = FirebaseDatabase.getInstance();
+//                rootref = database.getReference();
+//                userref = rootref.child("user");
 
                 EditText username = (EditText) findViewById(R.id.username);
 
-                User user1 = new User(username.getText().toString(), 0);
-                myRef.child("Username").setValue(user1);
+              User user1 = new User(username.getText().toString(), 0);
+//                userref.push().setValue(user1);
                 Intent intent = new Intent(MainActivity.this, SomScherm.class);
 
 

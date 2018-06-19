@@ -81,24 +81,21 @@ public class SomScherm extends AppCompatActivity {
                     teller++;
                     somteller.setText(""+teller+"/10");
                     Intent intent = getIntent();
-                    String username = intent.getStringExtra(MainActivity.USER_NAME);
+                    final String username = intent.getStringExtra(MainActivity.USER_NAME);
                     // verander de tekst van de button
                     // zodra cuurentNumber bij de 10e som
-                    if (currentNumber == 10){
+                    if (currentNumber > 10){
 
 
-
-                        System.out.println("Username = " + username);
 
                         FirebaseDatabase database = FirebaseDatabase.getInstance();
-                        final DatabaseReference myRef = database.getReference("users").push();
+                        final DatabaseReference myRef = database.getReference().child("user");
 
 
                         User user1 = new User(username, aantalgoed);
-//                                user.score = aantalgoed;
-//                                    System.out.println( "user print = " + user);
-//                                System.out.println( "user.score = " + user.score);
-                        myRef.child("Username").setValue(user1);
+
+                        String id = myRef.push().getKey();
+                        myRef.child(id).setValue(user1);
 
                         //end firebase
                         next.setText("Resultaat");
