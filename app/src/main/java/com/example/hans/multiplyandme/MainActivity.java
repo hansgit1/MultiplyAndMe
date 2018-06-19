@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
                 //start firebase
                 // Write a message to the database
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
-                final DatabaseReference myRef = database.getReference("users").push();
+                final DatabaseReference myRef = database.getReference("users");
 
                 EditText username = (EditText) findViewById(R.id.username);
 

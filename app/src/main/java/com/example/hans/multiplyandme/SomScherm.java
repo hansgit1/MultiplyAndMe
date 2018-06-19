@@ -39,6 +39,9 @@ public class SomScherm extends AppCompatActivity {
     int teller = 1;
     TextView somteller;
 
+    public static final String USER_SCORE = "";
+    public static final String USER_NAME = "";
+
     //oncreate functie
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,13 +80,14 @@ public class SomScherm extends AppCompatActivity {
                     // de gebruiker op volgende tapt
                     teller++;
                     somteller.setText(""+teller+"/10");
-
+                    Intent intent = getIntent();
+                    String username = intent.getStringExtra(MainActivity.USER_NAME);
                     // verander de tekst van de button
                     // zodra cuurentNumber bij de 10e som
                     if (currentNumber == 10){
 
-                        Intent intent = getIntent();
-                        String username = intent.getStringExtra(MainActivity.USER_NAME);
+
+
                         System.out.println("Username = " + username);
 
                         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -123,7 +127,15 @@ public class SomScherm extends AppCompatActivity {
                     if (currentNumber == 11) {
 
                         // als de 10de som bereikt is start resultaat activity
-                        startActivity(new Intent(SomScherm.this, Resultaat.class));
+//                        startActivity(new Intent(SomScherm.this, Resultaat.class));
+
+                        Intent intentResultaat = new Intent(SomScherm.this, Resultaat.class);
+
+
+                        intentResultaat.putExtra(USER_NAME, username);
+                        intentResultaat.putExtra(USER_SCORE, aantalgoed);
+
+                        startActivity(intentResultaat);
 
                     }
                 }
