@@ -45,6 +45,7 @@ public class SomScherm extends AppCompatActivity {
     //oncreate functie
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_som_scherm);

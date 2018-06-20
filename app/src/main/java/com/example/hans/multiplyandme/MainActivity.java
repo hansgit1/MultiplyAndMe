@@ -1,6 +1,7 @@
 package com.example.hans.multiplyandme;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -29,7 +30,9 @@ public class MainActivity extends AppCompatActivity {
         Button buttons = (Button) findViewById(R.id.buttons);
         Button instellingen = (Button) findViewById(R.id.instellingen);
 
-
+        //start muziek
+        MediaPlayer backgroundmusic = MediaPlayer.create(getBaseContext(), R.raw.backgroundmusic);
+        backgroundmusic.start();
 
 
 
