@@ -83,7 +83,12 @@ public class SomScherm extends AppCompatActivity {
                     Intent intent = getIntent();
                     final String username = intent.getStringExtra(MainActivity.USER_NAME);
                     // verander de tekst van de button
-                    // zodra cuurentNumber bij de 10e som
+                    // zodra cuurentNumber bij de 10e som text is resultaat
+                    if (currentNumber == 10){
+                        next.setText("Resultaat");
+                    }
+
+                    //als groter is zet de data in firebase
                     if (currentNumber > 10){
 
 
@@ -98,7 +103,7 @@ public class SomScherm extends AppCompatActivity {
                         myRef.child(id).setValue(user1);
 
                         //end firebase
-                        next.setText("Resultaat");
+
                     }
                     // hieronder een if statement die ervoor
                     // zorgt dat de onderstaande objecten niet
