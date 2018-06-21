@@ -27,8 +27,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Button startButton = (Button) findViewById(R.id.startButton);
-        Button buttons = (Button) findViewById(R.id.buttons);
-        Button instellingen = (Button) findViewById(R.id.instellingen);
+        final Button instellingen = (Button) findViewById(R.id.instellingen);
 
         //start muziek
         MediaPlayer backgroundmusic = MediaPlayer.create(getBaseContext(), R.raw.backgroundmusic);
@@ -60,7 +59,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
+        //instellingen
+        instellingen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, instellingen.class));
+            }
+        });
 
 //
 //        // Read from the database
